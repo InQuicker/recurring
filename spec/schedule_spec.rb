@@ -363,7 +363,6 @@ describe "A monthly schedule with week params and weekday params" do
   it "should have a next occurrence date no more than 38 days in the future" do
     # August 4, 2009 is a Saturday. So is September 5.  Calling next()
     # in 0.5.2 would return Nov. 7, 2009 as the next occurrence.
-    puts @rs.find_next(Time.utc(2009,8,3))
     @rs.find_next(Time.utc(2009,8,3)).should == Time.utc(2009,9,6)
   end
 end
@@ -433,6 +432,16 @@ describe "A bi-weekly schedule with weekdays and a noon time" do
 
   it "should find the previous time from a dangerous time" do
     @rs.find_previous(@danger).should == Time.utc(2006,12,16,12)
+  end
+end
+
+describe "A bi-weekly schedule anchored near the end of the year" do
+  before do
+    @rs = Recurring::Schedule.new :unit => 'weeks', :weekdays => %w{monday}, :times => '12pm', :frequency => 2, :anchor => Time.utc(2012,12,24)
+  end
+
+  it "should preserve frequency across year boundaries" do
+    @rs.should include(Time.utc(2013,01,07,12))
   end
 end
 

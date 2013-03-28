@@ -321,7 +321,7 @@ module Recurring
       def week_matches? date
 	      if @unit == :weeks 
       	  return true if @frequency == 1
-      	  return ((Recurring.week_of_year(date) - Recurring.week_of_year(@anchor)) % @frequency) == 0
+          return (((date.to_date - date.wday) - (@anchor.to_date - @anchor.wday)).to_i / 7 % @frequency) == 0
       	end
       	if @weeks
       	  @weeks.include?(Recurring.nth_instance_of_day_in_month(date)) || @weeks.include?(Recurring.nth_negative_instance_of_day_in_month(date))

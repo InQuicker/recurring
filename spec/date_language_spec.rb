@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + "/../lib/date_language"
 
-context "Every two days from 2006/11/3" do
+describe "Every two days from 2006/11/3" do
   before do
     @rdl = Recurring::DateLanguage.tell do
       every 2, :days, :anchor => Time.utc(2006,11,3)
@@ -8,7 +8,7 @@ context "Every two days from 2006/11/3" do
     end
   end
   
-  specify "should intialize properly" do
+  it "should intialize properly" do
     @rdl.frequency.should == 2
   end
   # specify "should return an rdl" do
@@ -25,7 +25,7 @@ context "Every two days from 2006/11/3" do
 end
 
 
-context "Converting from RDL to Schedule" do
-  specify "should call the right things on mocks and stubs" do
+describe "Converting from RDL to Schedule" do
+  it "should call the right things on mocks and stubs" do
   end
 end
